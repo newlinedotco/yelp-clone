@@ -16,6 +16,7 @@ const root    = resolve(__dirname);
 const src     = join(root, 'src');
 const modules = join(root, 'node_modules');
 const dest    = join(root, 'dist');
+const css     = join(src, 'styles')
 
 var config = getConfig({
   isDev: isDev,
@@ -83,7 +84,7 @@ cssloader.loader = newloader.loader
 
 config.module.loaders.push({
   test: /\.css$/,
-  include: [modules],
+  include: [modules, css],
   loader: 'style!css'
 })
 // CSS modules
