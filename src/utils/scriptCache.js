@@ -1,8 +1,9 @@
 let counter = 0;
 let scriptMap = new Map();
 
-export const ScriptCache = (function(global) {
-  return function ScriptCache (scripts) {
+export const ScriptCache = (function (global) {
+  'use strict';
+  const ScriptCache = function (scripts) {
     const Cache = {}
 
     Cache._onLoad = function (key) {
@@ -97,6 +98,21 @@ export const ScriptCache = (function(global) {
 
     return Cache;
   }
-})(window)
+
+  // AMD support
+  if (typeof define === 'function' && define.amd) {
+      define(function () { return ScriptCache; });
+  // CommonJS and Node.js module support.
+  } else if (typeof exports !== 'undefined') {
+      // Support Node.js specific `module.exports` (which can be a function)
+      if (typeof module !== 'undefined' && module.exports) {
+          exports = module.exports = ScriptCache;
+      }
+      // But always support CommonJS module 1.1.1 spec (`exports` cannot be a function)
+      exports.ScriptCache = ScriptCache;
+  } else {
+      global.ScriptCache = ScriptCache;
+  }
+})(this);
 
 export default ScriptCache;

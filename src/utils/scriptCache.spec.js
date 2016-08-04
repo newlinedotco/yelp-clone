@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 import sinon from 'sinon'
-import {ScriptCache} from './ScriptCache'
+import ScriptCache from './ScriptCache'
 
 describe('Cache', () => {
   let cache = [];
